@@ -27,7 +27,13 @@ public class Controller {
 		System.out.println("Received message from messaging : " + message);
 	}
 	
+	// Won't be used, use broadcastMessage() instead
 	public void sendMessage(String message) {
 		clientEndPoint.sendMessage(message);
+	}
+	
+	private void broadcastMessage(String message) {
+//	    peer1EndPoint.sendMessage("Hi to peer1 from " + clientPort + "!! (" + peer1Port + ")");
+//	    peer2EndPoint.sendMessage("Hi to peer2 from " + clientPort + "!! (" + peer2Port + ")");
 	}
 }
