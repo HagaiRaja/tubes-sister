@@ -3,8 +3,12 @@ import java.net.URI;
 public class Controller {
 	Messaging clientEndPoint = null;
 	String clientPort = null;
+	Messaging peer1EndPoint = null;
+	String peer1Port = null;
+	Messaging peer2EndPoint = null;
+	String peer2Port = null;
 	
-	public Controller(String clientPort/*, String peer1Port, String peer2Port*/) throws Exception {    	
+	public Controller(String clientPort, String peer1Port, String peer2Port) throws Exception {    	
         this.clientPort = clientPort;
 		clientEndPoint = new Messaging(new URI("ws://localhost:" + clientPort + "/Server/endpoint"));
 //		clientEndPoint.addMessageHandler(new Messaging.MessageHandler() {
@@ -12,22 +16,29 @@ public class Controller {
 //		    	clientEndPoint.sendMessage(message);
 //		    }
 //		});
-//		final Messaging peer1EndPoint = new Messaging(new URI("ws://localhost:" + peer1Port + "/Server/endpoint"));
-//		final Messaging peer2EndPoint = new Messaging(new URI("ws://localhost:" + peer2Port + "/Server/endpoint"));
+		final Messaging peer1EndPoint = new Messaging(new URI("ws://localhost:" + peer1Port + "/Server/endpoint"));
+		final Messaging peer2EndPoint = new Messaging(new URI("ws://localhost:" + peer2Port + "/Server/endpoint"));
  
         while (true) {
             clientEndPoint.sendMessage("Hi to myself!! (" + clientPort + ")");
-//		    peer1EndPoint.sendMessage("Hi to peer1 from " + clientPort + "!! (" + peer1Port + ")");
-//		    peer2EndPoint.sendMessage("Hi to peer2 from " + clientPort + "!! (" + peer2Port + ")");
+		    peer1EndPoint.sendMessage("Hi to peer1 from " + clientPort + "!! (" + peer1Port + ")");
+		    peer2EndPoint.sendMessage("Hi to peer2 from " + clientPort + "!! (" + peer2Port + ")");
             Thread.sleep(5000);
         }
 	}
 	
 	public static void receivedMessage(String message) {
 		System.out.println("Received message from messaging : " + message);
+		
 	}
 	
+	// Won't be used, use broadcastMessage() instead
 	public void sendMessage(String message) {
 		clientEndPoint.sendMessage(message);
+	}
+	
+	private void broadcastMessage(String message) {
+	    peer1EndPoint.sendMessage("Hi to peer1 from " + clientPort + "!! (" + peer1Port + ")");
+	    peer2EndPoint.sendMessage("Hi to peer2 from " + clientPort + "!! (" + peer2Port + ")");
 	}
 }
