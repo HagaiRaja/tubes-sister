@@ -8,6 +8,18 @@ public class Data {
     public Data (char alphabet, int ID, List<Integer> position) {
         this.alphabet = alphabet;
         this.ID = ID;
-        this.position = position;
+        this.position = new ArrayList<>(position);
+    }
+
+    public char getAlphabet() {
+        return alphabet;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public List<Integer> getPosition () {
+        return position;
     }
 }
