@@ -27,7 +27,7 @@ public class Controller {
 		System.out.println("Received message from messaging : " + message);
 	}
 	
-	public static void sendMessage(String message) {
-		
+	public void sendMessage(String message) {
+		clientEndPoint.sendMessage(message);
 	}
 }
