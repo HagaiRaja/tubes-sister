@@ -38,7 +38,7 @@ public class Messaging {
     public void onMessage(String message) {
 //        if (this.messageHandler != null)
 //            this.messageHandler.handleMessage(message);
-    	System.out.println("Received message : " + message);
+    	Controller.receivedMessage(message);
     }
 
 //    public void addMessageHandler(MessageHandler msgHandler) {
