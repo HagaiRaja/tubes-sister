@@ -39,10 +39,4 @@ public class Editor extends JFrame{
     f.setSize(500, 500);
     f.show();
   }
-
-  // Main class
-  public static void main(String args[])
-  {
-    Editor e = new Editor();
-  }
 }
