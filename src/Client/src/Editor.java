@@ -31,9 +31,6 @@ public class Editor extends JFrame {
   // Frame
   JFrame f;
 
-  // Button
-  JButton b;
-
   // Constructor
   Editor()
   {
@@ -53,10 +50,26 @@ public class Editor extends JFrame {
     // Text component
     t = new JTextArea();
 
-
     f.add(t);
     f.setSize(500, 500);
     f.show();
+
+  }
+
+  public void insertChar(char c, int position){
+    t.insert(String.valueOf(c),position);
+  }
+
+  public void deleteChar(int position){
+    t.replaceRange(null,position,position+1);
+  }
+
+  public int getPosition(){
+    return t.getCaretPosition();
+  }
+
+  public interface KeyListener extends java.awt.event.KeyListener{
+    
   }
 
 }
