@@ -8,12 +8,31 @@ import javax.swing.text.*;
 import java.util.concurrent.TimeUnit;
 import java.util.*;
 
-public class Editor extends JFrame{
+import java.awt.BorderLayout;
+import java.awt.Rectangle;
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.JTextComponent;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JPanel;
+
+public class Editor extends JFrame {
   // Text component
   JTextArea t;
 
   // Frame
   JFrame f;
+
+  // Button
+  JButton b;
 
   // Constructor
   Editor()
@@ -39,4 +58,5 @@ public class Editor extends JFrame{
     f.setSize(500, 500);
     f.show();
   }
+
 }
