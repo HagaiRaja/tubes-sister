@@ -27,7 +27,7 @@ public class Server {
         System.out.println("onMessage::From=" + session.getId() + " Message=" + message);
         
         try {
-            session.getBasicRemote().sendText("Hello Client " + session.getId() + "!");
+            session.getBasicRemote().sendText(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
