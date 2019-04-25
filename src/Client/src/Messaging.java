@@ -12,7 +12,6 @@ import javax.websocket.WebSocketContainer;
 @ClientEndpoint
 public class Messaging {
     Session userSession = null;
-//    private MessageHandler messageHandler;
  
     public Messaging(URI endpointURI) {
         try {
@@ -36,20 +35,13 @@ public class Messaging {
 
     @OnMessage
     public void onMessage(String message) {
-//        if (this.messageHandler != null)
-//            this.messageHandler.handleMessage(message);
     	Controller.receivedMessage(message);
     }
 
-//    public void addMessageHandler(MessageHandler msgHandler) {
-//        this.messageHandler = msgHandler;
-//    }
-
-    public void sendMessage(String message) {
-        this.userSession.getAsyncRemote().sendText(message);
+    public void sendMessage(String message, String to) {
+    	if (this.userSession.isOpen()) {
+    		this.userSession.getAsyncRemote().sendText("to " + to);
+            this.userSession.getAsyncRemote().sendText(message);
+    	}
     }
-
-//    public static interface MessageHandler {
-//        public void handleMessage(String message);
-//    }
 }

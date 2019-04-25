@@ -10,35 +10,25 @@ public class Controller {
 	
 	public Controller(String clientPort, String peer1Port, String peer2Port) throws Exception {    	
         this.clientPort = clientPort;
-		clientEndPoint = new Messaging(new URI("ws://localhost:" + clientPort + "/Server/endpoint"));
-//		clientEndPoint.addMessageHandler(new Messaging.MessageHandler() {
-//			public void handleMessage(String message) {
-//		    	clientEndPoint.sendMessage(message);
-//		    }
-//		});
-		final Messaging peer1EndPoint = new Messaging(new URI("ws://localhost:" + peer1Port + "/Server/endpoint"));
-		final Messaging peer2EndPoint = new Messaging(new URI("ws://localhost:" + peer2Port + "/Server/endpoint"));
- 
+        this.peer1Port = peer1Port;
+        this.peer2Port = peer2Port;
+		clientEndPoint = new Messaging(new URI("ws://localhost:" + clientPort + "/Server/endpoint/" + clientPort));
+		peer1EndPoint = new Messaging(new URI("ws://localhost:" + peer1Port + "/Server/endpoint/" + clientPort));
+		peer2EndPoint = new Messaging(new URI("ws://localhost:" + peer2Port + "/Server/endpoint/" + clientPort));
+		
         while (true) {
-            clientEndPoint.sendMessage("Hi to myself!! (" + clientPort + ")");
-		    peer1EndPoint.sendMessage("Hi to peer1 from " + clientPort + "!! (" + peer1Port + ")");
-		    peer2EndPoint.sendMessage("Hi to peer2 from " + clientPort + "!! (" + peer2Port + ")");
+		    broadcastMessage("Hi from " + clientPort);
             Thread.sleep(5000);
         }
 	}
 	
 	public static void receivedMessage(String message) {
-		System.out.println("Received message from messaging : " + message);
+		System.out.println(message);
 		
 	}
 	
-	// Won't be used, use broadcastMessage() instead
-	public void sendMessage(String message) {
-		clientEndPoint.sendMessage(message);
-	}
-	
 	private void broadcastMessage(String message) {
-	    peer1EndPoint.sendMessage("Hi to peer1 from " + clientPort + "!! (" + peer1Port + ")");
-	    peer2EndPoint.sendMessage("Hi to peer2 from " + clientPort + "!! (" + peer2Port + ")");
+	    peer1EndPoint.sendMessage(message, peer1Port);
+	    peer2EndPoint.sendMessage(message, peer2Port);
 	}
 }
